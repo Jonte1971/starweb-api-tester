@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Starweb API Tester</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Starweb API Tester</div>
+    <div class="spec-info" id="specInfo">Laddar spec…</div>
+  </header>
+
+  <section class="connection">
+    <label>Shop ID <input id="shopId" placeholder="t.ex. minbutik"></label>
+    <label class="wide">Base URL (valfri) <input id="baseUrl" placeholder="https://{shopId}.starwebserver.se/api/v2"></label>
+    <label>Client ID <input id="clientId" autocomplete="off"></label>
+    <label>Client Secret <input id="clientSecret" type="password" autocomplete="off"></label>
+    <button id="btnToken" class="primary">Hämta token</button>
+    <button id="btnReloadSpec" title="Ladda om OpenAPI-specen från din butik">↻ Spec</button>
+    <div class="token-status" id="tokenStatus">Ingen token</div>
+  </section>
+
+  <main class="layout">
+    <aside class="sidebar">
+      <input id="search" placeholder="Sök endpoint…">
+      <button id="btnCustom" class="custom-btn">+ Fritt anrop</button>
+      <div class="side-scroll">
+        <div class="side-title">Mallar – enkel produkt (Starweb-guide)</div>
+        <nav id="templateList"></nav>
+        <div class="side-title">Alla endpoints (OpenAPI)</div>
+        <nav id="endpointList"></nav>
+      </div>
+    </aside>
+
+    <section class="workspace">
+      <div class="request card">
+        <div class="req-line">
+          <select id="method">
+            <option>GET</option><option>POST</option><option>PUT</option><option>PATCH</option><option>DELETE</option>
+          </select>
+          <input id="path" placeholder="/products">
+          <button id="btnSend" class="primary">Skicka</button>
+        </div>
+        <div id="opInfo" class="op-info"></div>
+        <div class="vars">
+          <span class="vars-label" title="Fångas automatiskt från svar. Används för {productId} i path och {{namn}} i body/query.">Variabler:</span>
+          <span id="varList"></span>
+          <button id="btnAddVar" class="small">+ Lägg till</button>
+        </div>
+
+        <div class="tabs">
+          <button data-tab="params" class="active">Parametrar</button>
+          <button data-tab="body">Body</button>
+          <button data-tab="history">Historik</button>
+        </div>
+        <div class="tab-panel" id="tab-params">
+          <div id="paramForm"></div>
+          <details class="extra">
+            <summary>Extra query-parametrar</summary>
+            <textarea id="extraQuery" rows="2" placeholder="nyckel=värde&amp;nyckel2=värde2"></textarea>
+          </details>
+        </div>
+        <div class="tab-panel hidden" id="tab-body">
+          <div class="body-tools">
+            <button id="btnExample">Fyll med exempel från schema</button>
+            <button id="btnFormat">Formatera JSON</button>
+            <span id="bodyError" class="error"></span>
+          </div>
+          <textarea id="body" rows="14" spellcheck="false" placeholder="{ }"></textarea>
+        </div>
+        <div class="tab-panel hidden" id="tab-history">
+          <button id="btnClearHistory">Rensa historik</button>
+          <ul id="historyList"></ul>
+        </div>
+      </div>
+
+      <div class="response card">
+        <div class="resp-head">
+          <span id="respStatus" class="badge">–</span>
+          <span id="respMeta"></span>
+          <span class="spacer"></span>
+          <button data-rtab="body" class="rtab active">Body</button>
+          <button data-rtab="headers" class="rtab">Headers</button>
+          <button id="btnCopy">Kopiera</button>
+        </div>
+        <div id="respUrl" class="resp-url"></div>
+        <pre id="respBody" class="json">Skicka ett anrop för att se svaret här.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script src="templates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "starweb-api-tester",
+  "version": "1.0.0",
+  "description": "Lokal webbapp för att testa anrop mot Starwebs Shop API v2",
+  "main": "server.js",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": { "node": ">=18" }
+}
